@@ -14,7 +14,7 @@ class CryptoConvertion:
 
 
         if quote == base:
-            raise APIException('Вы указади одинаковые валюты!')
+            raise APIException('Вы указали одинаковые валюты!')
         try:
             quote_ticker = keys[str.lower(quote)]
         except KeyError:
