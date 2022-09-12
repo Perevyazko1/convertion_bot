@@ -16,12 +16,12 @@ class CryptoConvertion:
         if quote == base:
             raise APIException('Вы указади одинаковые валюты!')
         try:
-            quote_ticker = keys[quote]
+            quote_ticker = keys[str.lower(quote)]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {quote}')
 
         try:
-            base_ticker = keys[base]
+            base_ticker = keys[str.lower(base)]
         except KeyError:
             raise APIException(f'Не удалось обработать валюту {base}')
 
@@ -40,4 +40,6 @@ class CryptoConvertion:
         response = requests.request("GET", url, headers=headers, data=payload)
 
         result = round(json.loads(response.text)['result'], 2)
+        print(result)
         return result
+
