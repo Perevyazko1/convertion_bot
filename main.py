@@ -1,8 +1,8 @@
 import telebot
 import lxml.html
 from lxml import etree
-from exeptions import keys, TOKEN
-from utils import CryptoConvertion, ConvertionExeptions
+from config import keys, TOKEN
+from exeptions import CryptoConvertion, APIException
 bot = telebot.TeleBot(TOKEN)
 
 
@@ -27,10 +27,10 @@ def convert(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
         if len(values) != 3:
-            raise ConvertionExeptions('Слишком много параметров!')
+            raise APIException('Слишком много параметров!')
         quote, base, amount = values
-        total_base = CryptoConvertion.convert(quote,base,amount)
-    except ConvertionExeptions as e:
+        total_base = CryptoConvertion.get_price(quote,base,amount)
+    except APIException as e:
         bot.reply_to(message, f'Ошибка пользователя \n {e}')
     except Exception as e:
         bot.reply_to(message,f'Не удалось конвертировать\n {e}')
