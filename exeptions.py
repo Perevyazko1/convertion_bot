@@ -40,6 +40,5 @@ class CryptoConvertion:
         response = requests.request("GET", url, headers=headers, data=payload)
 
         result = round(json.loads(response.text)['result'], 2)
-        print(result)
         return result
 
