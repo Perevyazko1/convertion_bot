@@ -30,7 +30,14 @@ class CryptoConvertion:
         except ValueError:
             raise APIException(f'Не удалось обработать количество {amount}')
 
-        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-        total_base = json.loads(r.content)[keys[base]]
+        url = f"https://api.apilayer.com/fixer/convert?to={base_ticker}&from={quote_ticker}&amount={amount}"
 
-        return total_base
+        payload = {}
+        headers = {
+            "apikey": "FTsSQG8T440ithB5vdeu1ZacbSI3m62C"
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        result = round(json.loads(response.text)['result'], 2)
+        return result
