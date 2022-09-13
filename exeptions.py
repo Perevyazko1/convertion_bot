@@ -3,7 +3,6 @@ import json
 from config import keys
 
 
-
 class APIException(Exception):
     pass
 
@@ -11,7 +10,6 @@ class APIException(Exception):
 class CryptoConvertion:
     @staticmethod
     def get_price(quote: str, base: str, amount: str):
-
 
         if quote == base:
             raise APIException('Вы указали одинаковые валюты!')
@@ -41,4 +39,3 @@ class CryptoConvertion:
 
         result = round(json.loads(response.text)['result'], 2)
         return result
-
